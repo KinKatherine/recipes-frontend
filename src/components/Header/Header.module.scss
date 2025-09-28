@@ -1,0 +1,134 @@
+.siteHeader {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative; // Для позиционирования кнопок языка
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.headerTop {
+  background-color: #ffffff;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  .container {
+    justify-content: space-between;
+  }
+}
+
+.logo {
+  text-decoration: none;
+  color: #333;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.searchForm {
+  position: relative;
+  width: 40%;
+  input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 14px;
+    font-family: inherit; // Наследуем шрифт Arsenal
+  }
+  button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    color: #555;
+    display: flex;
+  }
+}
+
+.authLinks {
+  display: flex;
+  align-items: center;
+  a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    margin-left: 20px;
+    &:first-child {
+      padding-right: 20px;
+      border-right: 1px solid #ddd;
+    }
+  }
+}
+
+.headerBottom {
+  background-color: #FDEECF;
+  display: flex;
+  justify-content: center;
+  .container {
+    justify-content: center;
+  }
+}
+
+.mainNav {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  padding: 12px 0;
+  a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.favoritesLink svg {
+  stroke: #333;
+}
+
+.langSwitcher {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  z-index: 10;
+  button {
+    margin-left: 5px;
+    cursor: pointer;
+  }
+}
+
+/* --- Адаптивные стили --- */
+@media (max-width: 768px) {
+  .headerTop .container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .searchForm {
+    width: 90%;
+    order: 2;
+  }
+  .logo {
+    order: 1;
+  }
+  .authLinks {
+    order: 3;
+    margin-left: 0;
+    justify-content: center;
+  }
+  .mainNav {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+}
