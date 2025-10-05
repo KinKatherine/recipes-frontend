@@ -1,12 +1,19 @@
 import React from 'react';
-import Header from './components/Header/Header'; // Импортируем нашу шапку
+import './App.css';
+import Header from './components/Header/Header';
+import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 
 function App() {
     return (
-        <>
+        <div className="App">
             <Header />
-            {/* Здесь будут отображаться другие страницы (контент) */}
-        </>
+            <main>
+                {}
+                <div className="container">
+                    <FavoritesPage />
+                </div>
+            </main>
+        </div>
     );
 }
 

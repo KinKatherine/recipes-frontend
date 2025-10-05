@@ -1,0 +1,12 @@
+.rating {
+  color: #ccc; /* Цвет пустых звезд */
+  font-size: 1.5rem;
+}
+
+.star {
+  margin-right: 2px;
+}
+
+.star.filled {
+  color: #111; /* Цвет заполненных звезд */
+}
