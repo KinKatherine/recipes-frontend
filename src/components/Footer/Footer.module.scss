@@ -1,0 +1,13 @@
+@use '../../styles/abstracts/variables' as *;
+
+.footer{
+  width:100%;
+  height: 10vh;
+  background-color: $color-yellow;
+  border-top: 1px solid $color-white;
+  p{
+    padding: 18px 7%;
+    font-family: $font-stack;
+    font-size: clamp(1rem, 1.8vw, 20px);  
+  }
+}

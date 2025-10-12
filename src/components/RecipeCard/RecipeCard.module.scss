@@ -1,73 +1,114 @@
-.recipeCard {
-  background-color: #FEEFCB;
-  border-radius: 20px;
-  overflow: hidden;
+@use '../../styles/abstracts/variables' as *;
+
+.card{
   display: flex;
-  flex-direction: column;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-}
-
-.imageContainer {
-  position: relative;
-}
-
-.image {
-  width: 100%;
+  background-color: $color-white;
+  width: 22%;
   height: auto;
-  display: block;
-}
-
-/*
-  ИЗМЕНЕННЫЙ БЛОК ДЛЯ КНОПКИ "ИЗБРАННОЕ"
-  Здесь мы сделали кнопку белой, добавили тень и стили для картинки (иконки) внутри.
-*/
-.favoriteBtn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
+  border-radius: clamp(5vw, 1vw, 80px);
+  align-items:center;
   justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+  padding: 1%;
+  .frame{
+    display:flex;
+    //flex:1;
+    position: relative;
+    width:100%;
+    height: 100%;
+    aspect-ratio: 5 / 6; 
+    //min-height: 420px;
+    //margin:4%;
+    background-color: $color-yellow;
+    border-radius: clamp(4vw, 1vw, 70px);
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
 
-  &:hover {
-    transform: scale(1.1);
+    .image-container{
+      display: flex;
+      width:100%;
+      height: auto;
+      position: relative;
+      border-radius: inherit;
+       flex: 1;
+      
+      .image{
+        display: flex;
+        width: 100%;
+        height: 100%; 
+        object-fit: cover; 
+        border-radius: inherit;
+        position: absolute;
+      }
+      .favorite{
+        position: absolute;
+        top: 10%;
+        right: 10%;
+        img{
+          width: 3vw;
+          height: auto;
+        }
+      }
+    }
+    .info{
+      display: flex;
+      width:100%;
+      height: 20%;
+      
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4vh;
+      margin-top: 2vh;
+      gap: 20%;
+      .name{
+        width: 100%;
+        display: flex;
+        flex:1;
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        //max-width: 150px;
+       // flex:1;
+       //margin-bottom: 7%;
+         padding-right: 6%;
+         padding-left: 6%;
+
+        p{
+        font-size: clamp(1rem, 1.8vw, 24px);
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        }
+      }
+      .content{
+        display: flex;
+        //flex:1;
+        padding-left: 12%;
+        padding-right: 12%;
+        width:100%;
+        flex-direction:row;
+        width: 100%;
+        align-items: flex-end;
+        text-wrap: nowrap;
+        .text{
+          flex-direction: column;
+          text-align: left;
+          font-size: clamp(0.8rem, 1.4vw, 20px);
+          flex:1;
+        }
+        .rating{
+          display: flex;
+          align-self: flex-end;
+          margin-left:auto;
+          flex-wrap: nowrap;
+          img{
+            width: 1.9vw;
+            height: auto;
+          }
+        }
+      }
+    }
   }
-
-  // Стили для нашей иконки внутри кнопки
-  img {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-.info {
-  padding: 15px;
-  text-align: left;
-}
-
-.title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 0 0 10px;
-}
-
-.meta {
-  display: flex;
-  justify-content: space-between;
-  color: #777;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
 }

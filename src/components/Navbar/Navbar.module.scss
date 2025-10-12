@@ -1,0 +1,63 @@
+@use '../../styles/abstracts/variables' as *;
+
+.navbar{
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $color-white;
+  padding: 18px 7%;
+  font-size: clamp(1.2rem, 1.8vw, 20px);
+
+  .recipies-home{
+    text-decoration: none;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+  .sign-in{
+    display: flex;
+    list-style: none;
+    align-items: center;  
+    gap: 30px;
+
+    li{
+      cursor:pointer;
+    }
+  }
+
+  .home-bar{
+    display: flex;
+    cursor: pointer;
+  }
+
+  .search-box{
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    padding: 5px 20px;
+    border: 1px solid;
+    height: 35px;
+    justify-content: center;
+    width: 30%; 
+    min-width: 15%; 
+    margin-left: 7%;
+    
+    input{
+      padding: 6px;
+      background: none; 
+      border: none;
+      outline: 0;
+      color: #000000;
+      font-size: 20px;
+      width: 100%;
+    }
+    
+    .search-icon{
+      width: 22px;
+      cursor:pointer;
+    }
+  }
+ 
+}
