@@ -13,19 +13,23 @@ const NewRecipesData = [
   { id: 3, name: 'хачапури по-аджарски и что то там ещё вкусное', image: khachapuri, meal: 'ужин', time: '45 минут', rating: 4 },
 ];
 
+const DayRecipeData = [
+  { id: 1, name: 'Рататуй', image: imageRecipe, description: 'Овощи, запечённые в духовке', meal: 'обед', time: '10 минут', rating: 5},
+];
 
 const Home = () => {
+  const dayRecipe = DayRecipeData[0];
   return (
     <div className={styles.home}>
       <div className={styles["day-recipe"]}>
         <div className={styles["recipe"]}>
-          <img src={imageRecipe} alt="" className={styles["imageRecipe"]}/>
+          <img src={dayRecipe.image} alt="" className={styles["imageRecipe"]}/>
           <div className={styles['info']}>
             <p className={styles['name']}>
-              Ratatuille
+              {dayRecipe.name}
             </p>
             <p className={styles['description']}>
-              Vegetables baked in oven
+              {dayRecipe.description}
             </p>
             <button>
               to recipe

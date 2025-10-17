@@ -20,7 +20,7 @@
     display: flex;
     list-style: none;
     align-items: center;  
-    gap: 30px;
+    gap: 2vw;
 
     li{
       cursor:pointer;
@@ -60,4 +60,55 @@
     }
   }
  
+  @media(max-width: 1024px) {
+        padding: 18px 5%; 
+        font-size: clamp(1.0rem, 1.8vw, 20px);
+        height: 9vh;
+        .search-box {
+  
+            width: 35%;
+            margin-left: 3%;
+            padding: 5px 15px; 
+            
+            input {
+                font-size: 16px; 
+            }
+        }
+        
+        .sign-in {
+            gap: 1.5vw; 
+            height: 4vh;
+        }
+    }
+    @media(max-width: 768px) {
+      
+        height: 8vh; 
+        padding: 15px 7%; 
+        
+        font-size: clamp(0.9rem, 2vw, 24px);
+
+        .search-box {
+            min-width: unset; 
+            margin-left: 2%;
+            height: 30px; 
+            padding: 4px 10px; 
+
+            input {
+                 font-size: clamp(0.9rem, 2vw, 24px);
+                padding: 4px;
+            }
+            
+            .search-icon {
+                width: 18px;
+            }
+        }
+     
+        .sign-in {
+            gap: 2vw; 
+            .line-sign-in{
+              height: 4vh;
+            }
+        }
+    
+    }
 }
