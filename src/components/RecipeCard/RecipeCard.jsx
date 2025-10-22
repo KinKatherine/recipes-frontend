@@ -2,8 +2,8 @@ import {useState} from 'react'
 import styles from './RecipeCard.module.scss'
 import heartFilled from '../../assets/like-heart-filled.svg'
 import heartEmpty from '../../assets/like-heart-empty.svg'
-import starEmpty from '../../assets/star-empty.svg'
-import starFilled from '../../assets/star-filled.svg'
+
+import StarRating from '../StarRating'
 
 const RecipeCard = ({recipe, isSmall, isFavorite = false}) => {
   const [isLiked, setIsLiked] = useState(isFavorite);
@@ -13,19 +13,6 @@ const RecipeCard = ({recipe, isSmall, isFavorite = false}) => {
 
   }
   const heartIcon = isLiked ? heartFilled : heartEmpty;
-
-  const renderStars = (rating) => {
-    const stars =[];
-    for(let i = 1; i <=5; i++){
-      if(i <= rating){
-        stars.push(<img key={`star-filled-${i}`} src={starFilled} alt=''/>)
-      } 
-      else{
-        stars.push(<img key={`star-empty-${i}`} src={starEmpty} alt=''/>)
-      }
-    }
-    return <div className={styles['ratingContainer']}>{stars}</div>;
-  }
 
    const smallClass = isSmall ? styles['card--small'] : '';
   const cardClasses = `${styles.card} ${smallClass}`; 
@@ -49,7 +36,9 @@ const RecipeCard = ({recipe, isSmall, isFavorite = false}) => {
               <p className={styles['time']}>{recipe.time}</p>
             </div>
             <div className={styles['rating']}>
-              {renderStars(recipe.rating)}
+              <StarRating
+                rating = {recipe.rating}
+              />
             </div>
           </div>
         </div>

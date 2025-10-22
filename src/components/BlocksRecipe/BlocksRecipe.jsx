@@ -10,7 +10,7 @@ const BlocksRecipe = ({data, isFavoriteSection}) => {
           key = {recipe.id}
           recipe= {recipe}
           isSmall={true}
-          isFavorite={isFavoriteSection}
+          isFavorite={recipe}
         />
       ))}
     </div>

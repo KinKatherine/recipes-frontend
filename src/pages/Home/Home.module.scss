@@ -74,17 +74,9 @@
           white-space: nowrap;
         }
         button{
-          width: 60%;
-          height:20%;
           margin-top: 7vh;
-          background-color: $color-yellow ;
           font-style:italic;
           font-size: clamp(1rem, 2vw, 24px); 
-          border-radius: 80px;
-          border-style: none;
-          padding: 1.5vmin 1vw;
-          align-items: center;
-          box-shadow: 0 7px 3px #C0C0C0;
         }
       }
     }

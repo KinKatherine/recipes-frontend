@@ -6,6 +6,7 @@ import RecipeCard from '../../components/RecipeCard/RecipeCard'
 import dumplings from '../../assets/fake-recipes-images/dumplings.svg';
 import fish from '../../assets/fake-recipes-images/fish.svg';
 import khachapuri from '../../assets/fake-recipes-images/khachapuri.svg';
+import Button from '../../components/Button/Button';
 
 const NewRecipesData = [
   { id: 1, name: 'пельмешки', image: dumplings, meal: 'обед', time: '10 минут', rating: 5},
@@ -31,9 +32,7 @@ const Home = () => {
             <p className={styles['description']}>
               {dayRecipe.description}
             </p>
-            <button>
-              to recipe
-            </button>
+            <Button buttonName={'to recipe'} className={styles["button"]}/>
           </div>
           
         </div>

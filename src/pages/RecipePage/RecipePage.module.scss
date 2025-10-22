@@ -1,0 +1,8 @@
+@use '../../styles/abstracts/variables' as *;
+
+.page{
+  width:100%;
+  min-height: 85vh;
+  background-color: $color-white;
+  padding: 5vh;
+}
