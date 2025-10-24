@@ -1,12 +1,12 @@
-/* RecipeCard.module.scss - Merged */
+/* RecipeCard.module.scss - Merged & Fixed for Grid Layout */
 
 .card {
   background-color: #ffffff;
-  width: 22%; 
+  /* Убираем фиксированную ширину, чтобы карточка вписывалась в сетку */
+  /* width: 22%; */ 
+  width: 100%; /* Заставляем карточку занимать все место в ячейке сетки */
   height: auto;
   border-radius: clamp(1vw, 5vw, 80px);
-  align-items:center;
-  justify-content: center;
   padding: 1.2%;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 
