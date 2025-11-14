@@ -4,12 +4,13 @@ import cross from '../../assets/cross.svg'
 
 import {useState, useEffect, useRef} from 'react';
 
-const USER_REGEX = /^[A-Za-z][a-zA-Z0-9-_]{6,16}$/;
+const USER_REGEX = /^[A-Za-z][a-zA-Z0-9-_]{5,16}$/;
 const MAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const PWD_REGEX = /^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,24}$/;
+const PWD_REGEX = /^(?=.*?[0-9])(?=.*?[A-Za-z]).{7,24}$/;
 
 const CHECK_USERNAME_URL = '/api/v1/validation/check-username';
 const CHECK_MAIL_URL = '/api/v1/validation/check-email';
+const REGISTER_URL = '/api/v1/auth/register';
 
 const RegistWindow = ({onClose}) => {
   const userRef = useRef();
@@ -18,26 +19,44 @@ const RegistWindow = ({onClose}) => {
 
   const [user, setUser] = useState('')
   const [validName, setValidName] = useState(false);
-  const [userFocus, setUserFocus] = useState(false);
 
   const [userAvailable, setUserAvailable] = useState(false);
 
   const [mail, setMail] = useState('')
   const [validMail, setValidMail] = useState(false);
-  const [mailFocus, setMailFocus] = useState(false);
 
   const [mailAvailable, setMailAvailable] = useState(false);
 
   const [pwd, setPwd] = useState('')
   const [validPwd, setValidPwd] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
 
   const [matchPwd, setMatchPwd] = useState('')
   const [validMatch, setValidMatch] = useState(false);
-  const [matchFocus, setMatchFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
+
+  const registerUser = async (data) => {
+    try{
+      const response = await fetch(REGISTER_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      if(!response.ok){
+        let errorData = await response.json().catch(() => ({ message: 'Ошибка сервера' }));
+        throw new Error(errorData.message || `HTTP Error! Status: ${response.status}`);
+      }
+    }
+    catch (e) {
+      console.error("Registration failed:", e);
+      setErrMsg(e.message || 'Не удалось зарегистрироваться. Попробуйте снова.');
+      errRef.current.focus(); 
+    }
+  }
+
   const checkUsername = async(user) => {
     if(!user){
       return;
@@ -104,13 +123,13 @@ const RegistWindow = ({onClose}) => {
     console.log(user);
     console.log(userAvailable);
     if (user === '') {
-        setUserAvailable(false); 
+        setUserAvailable(true); 
         return; 
     }
     if(isValid && user){
       const delayCheck = setTimeout(() => {
               checkUsername(user);
-      })
+      },500)
       return () => clearTimeout(delayCheck);
     }
    
@@ -123,13 +142,13 @@ const RegistWindow = ({onClose}) => {
     console.log(mail);
     console.log(mailAvailable)
     if(mail === ''){
-      setMailAvailable(false);
+      setMailAvailable(true);
       return;
     }
     if (isValid && mail){
       const delayCheck = setTimeout(() => {
         checkMail(mail);
-      })
+      }, 500)
       return () => clearTimeout(delayCheck);
     }
   }, [mail])
@@ -156,8 +175,15 @@ const RegistWindow = ({onClose}) => {
       setErrMsg('Некорректный ввод');
       return;
     }
-    console.log(user, mail, pwd);
-    setSuccess(true);
+    const registData = {
+      username: user,
+      email: mail,
+      password : pwd,
+    };
+
+    await registerUser(registData);
+
+    setSuccess(true); 
   }
 
   return (
@@ -210,16 +236,14 @@ const RegistWindow = ({onClose}) => {
                     :
                     undefined
                 }
-                  onFocus={() => setUserFocus(true)}
-                  onBlur={() => setUserFocus(false)}
                   className={styles["loginInput"]}
                   />
-                  <p id= 'nonValidName' className={userFocus && user && !validName ? styles['instructions'] : styles['offscreen']}>
+                  <p id= 'nonValidName' className={user && !validName ? styles['instructions'] : styles['offscreen']}>
                     от 6 до 16 символов.
                     Должно начинаться с буквы.<br/>
                     Латинские буквы, числа, _, - разрешены
                   </p>
-                   <p id= 'existingName' className={userFocus && user && validName && !userAvailable ? styles['instructions'] : styles['offscreen']}>
+                   <p id= 'existingName' className={!userAvailable && user && validName  ? styles['instructions'] : styles['offscreen']}>
                     Пользователь с таким логином уже существует в системе
                   </p>
                 </div>
@@ -239,15 +263,13 @@ const RegistWindow = ({onClose}) => {
                   :
                   undefined
                  }
-                 onFocus={() => setMailFocus(true)}
-                 onBlur={() => setMailFocus(false)}
                  className={styles["mailInput"]}
                  />
-                <p id= 'nonValueMail' className={mailFocus && mail && !validMail ? styles['instructions'] : styles['offscreen']}>
+                <p id= 'nonValueMail' className={mail && !validMail ? styles['instructions'] : styles['offscreen']}>
                   Неверный формат электронной почты. <br/>
                   Адрес должен содержать символ @ и  домен.
                 </p>
-                <p id= 'existingMail' className={mailFocus && mail && validMail && !mailAvailable ? styles['instructions'] : styles['offscreen']}>
+                <p id= 'existingMail' className={ mail && validMail && !mailAvailable ? styles['instructions'] : styles['offscreen']}>
                   Пользователь с данной почтой уже зарегистрирован в системе.
                 </p>
                 
@@ -260,11 +282,9 @@ const RegistWindow = ({onClose}) => {
                   required
                   aria-invalid = {validPwd ? "false" : "true"}
                   aria-describedby = 'pwdnote'
-                  onFocus={() => setPwdFocus(true)}
-                  onBlur={() => setPwdFocus(false)}
                   className={styles["passwordInput"]}
                  />
-                <p id= 'pwdnote' className={pwdFocus && pwd && !validPwd ? styles['instructions'] : styles['offscreen']}>
+                <p id= 'pwdnote' className={pwd && !validPwd ? styles['instructions'] : styles['offscreen']}>
                   от 8 до 24 символов <br/>
                   Должен включать числа и латинские буквы.
                 </p>
@@ -277,11 +297,9 @@ const RegistWindow = ({onClose}) => {
                   required
                   aria-invalid = {validMatch ? "false" : "true"}
                   aria-describedby = 'confirmnote'
-                  onFocus={() => setMatchFocus(true)}
-                  onBlur={() => setMatchFocus(false)}
                   className={styles["repeatPasswordInput"]}
                 />
-                <p id= 'confirmnote' className={matchFocus && matchPwd && !validMatch ? styles['instructions'] : styles['offscreen']}>
+                <p id= 'confirmnote' className={ matchPwd && !validMatch ? styles['instructions'] : styles['offscreen']}>
                   Пароли должны совпадать.
                 </p>
               </div>
