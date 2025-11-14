@@ -15,7 +15,7 @@
   
   .frame{
     border-radius: 10vmin;
-    padding: 0.8vw;
+    padding: 1.5vmin;
     background-color: $color-yellow;
     .block{
       display: flex;
@@ -69,7 +69,7 @@
             background-color: $color-yellow;
             padding: 1vh 2vw;
             padding-top: 0.5vh;
-            border-radius: 2vw;
+            border-radius: 3vw;
             //line-height: 1.5;
             input{
               width: 100%;
@@ -86,6 +86,16 @@
               
             }
           }
+          .instructions {
+            //width: 10vw;
+            padding-right: 25vw;
+            font-size: 0.75rem;
+            color: $color-red;
+            position: fixed;
+            z-index: 12;   
+            margin-top: 1vh;  
+       
+          }
           
           .loginBlock{
             width: 60%;
@@ -101,26 +111,84 @@
     }
     }
   }
-  @media(max-width: 420px){
+  @media(max-width: 1024px){
     .frame{
-      width: 70vw;
-      padding: 2vw;
-      border-radius: 10vw;
+      // width: 70vw;
+      // padding: 2vw;
+      // border-radius: 10vw;
       .block{
         .cross{
-          width: 8vw;
+          width: 4vw;
         }
+        .formBlock{
+         padding-right: 2vmin;
+         padding-left: 2vmin;
         .fields{
+          .columnNames{
+            display: flex;
+            flex-direction: column;
+            gap: 7vh;
+            font-size: clamp(1.1rem, 1vw, 16px);
+          }
           .inputFields{
-            *{
-              border-radius: 5vw;
+            gap: 5vh;
+            *:not(.instructions){
+              border-radius: 10vw;
+
+              input{
+              font-size: clamp(1.1rem, 1vw, 16px);
             }
-            .input{
-              padding: 1vw;
             }
+            
           }
         }
       }
+    }
+    }
+  }
+ @media(max-width: 480px){
+    .frame{
+      // width: 70vw;
+      padding: 2vw;
+       border-radius: 15vw;
+      
+      .block{
+        border-radius: 14vw;
+        padding: 8vw;
+        .cross{
+          width: 8vw;
+          right: -6vw;
+          top: -6vw;
+        }
+        .formBlock{
+         padding-right: 2vmin;
+         padding-left: 2vmin;
+        .fields{
+          
+          .columnNames{
+            display: flex;
+            flex-direction: column;
+            gap: 6vh;
+            font-size: clamp(0.9rem, 1vw, 16px);
+          }
+          .inputFields{
+            gap: 4vh;
+            *:not(.instructions){
+              border-radius: 5vw;
+
+              input{
+              font-size: clamp(0.9rem, 1vw, 16px);
+            }
+            .instructions{
+              padding-right: 0vw;
+              font-size: clamp(0.6rem, 0.9vw, 10px);
+            }
+            }
+            
+          }
+        }
+      }
+    }
     }
   }
 }
@@ -128,16 +196,7 @@
     position: absolute;
     left: -9999px;
 }
-.instructions {
-  //width: 10vw;
-  
-  font-size: 0.75rem;
-  color: $color-red;
-  position: fixed;
-  z-index: 12;   
-  margin-top: 1vh;  
-       
-}
+
 .successBlock{
   display: flex;
   flex-direction: column;

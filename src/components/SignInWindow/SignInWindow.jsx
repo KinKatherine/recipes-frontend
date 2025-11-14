@@ -6,7 +6,7 @@ const SignInWindow = ({onClose}) => {
     <div className={styles["window"]}>
        <div className={styles["frame"]}>
         <div className={styles["block"]}>
-          <p className={styles["title"]}>Регистрация</p>
+          <p className={styles["title"]}>Вход</p>
           <img src={cross} className={styles["cross"]} onClick={onClose}/>
           <div className={styles["fields"]}>
             <div className={styles["columnNames"]}>
