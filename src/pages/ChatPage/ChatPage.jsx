@@ -9,8 +9,7 @@ const ChatPage = ({ isAdmin }) => {
   const ws = useRef(null);
 
   useEffect(() => {
-    // Используем относительный путь. Vite перенаправит его на ваш бэкенд благодаря прокси.
-    // Убедитесь, что ваш бэкенд запущен на порту 3001 (или измените порт в vite.config.js)
+
     const wsUrl = `ws://${window.location.host}/ws`;
     
     ws.current = new WebSocket(wsUrl);
@@ -19,13 +18,11 @@ const ChatPage = ({ isAdmin }) => {
       console.log('WebSocket-соединение с локальным сервером установлено.');
       setMessages(prev => [...prev, { text: 'Соединение установлено!', sender: 'System', isOutgoing: false, timestamp: new Date().toLocaleTimeString().slice(0, 5) }]);
       
-      // Сюда можно добавить логику аутентификации, если она нужна
-      // Например: ws.current.send(JSON.stringify({ type: 'auth', token: 'your_token' }));
+
     };
 
     ws.current.onmessage = (event) => {
-      // Здесь будет логика обработки сообщений от ВАШЕГО бэкенда
-      // Вам нужно будет адаптировать этот код под ваш формат JSON
+
       try {
         const receivedData = JSON.parse(event.data);
         
@@ -60,15 +57,15 @@ const ChatPage = ({ isAdmin }) => {
     event.preventDefault();
     if (!newMessage.trim() || ws.current?.readyState !== WebSocket.OPEN) return;
 
-    // Адаптируйте этот объект под формат, который ожидает ВАШ бэкенд
+
     const messageToSend = {
       text: newMessage,
-      // Возможно, нужно добавить ID пользователя или токен
+
     };
 
     ws.current.send(JSON.stringify(messageToSend));
 
-    // Оптимистичное добавление в UI
+
     const outgoingMessage = {
       text: newMessage,
       sender: 'Me',
