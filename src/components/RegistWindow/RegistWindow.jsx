@@ -182,7 +182,7 @@ const RegistWindow = ({onClose}) => {
       email: mail,
     };
 
-    await registerUser(registData);
+    const result = await registerUser(registData);
 
      if (result === true) {
         setSuccess(true);
