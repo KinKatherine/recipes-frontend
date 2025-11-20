@@ -177,14 +177,15 @@ const RegistWindow = ({onClose}) => {
     }
     const registData = {
       username: user,
-      email: mail,
       password : pwd,
+      confirmPassword: matchPwd,
+      email: mail,
     };
 
     await registerUser(registData);
 
      if (result === true) {
-      setSuccess(true);
+        setSuccess(true);
      }
   }
 
