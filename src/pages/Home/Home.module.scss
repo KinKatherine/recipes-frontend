@@ -47,15 +47,17 @@
       border-bottom-left-radius: 10vmin;
       border-top-left-radius: 10vmin;
       display: flex;
-    
-
+      max-height: 50vh;
+        
       img{
         display: flex;
         margin: 20px;
-        border-radius: 5vmin;
-        width: 36%; 
+        border-radius: 7vmin;
+        width: 40%; 
         min-width: 200px;
         height: auto; 
+        object-fit:cover;
+        
       }
 
       .info{

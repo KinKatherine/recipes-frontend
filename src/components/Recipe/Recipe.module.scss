@@ -34,9 +34,12 @@
       padding: 1.3vw;
       align-items: center;
       justify-content: center;
+     
         .image{
           width: 30vw;
+          object-fit: cover;
           border-radius: 4vw;
+          max-height: 45vh;
         }
     }
     .ratingInfo{
