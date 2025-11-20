@@ -183,7 +183,9 @@ const RegistWindow = ({onClose}) => {
 
     await registerUser(registData);
 
-    setSuccess(true); 
+     if (result === true) {
+      setSuccess(true);
+     }
   }
 
   return (
