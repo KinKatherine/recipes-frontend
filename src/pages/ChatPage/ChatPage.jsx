@@ -1,78 +1,87 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ChatPage.module.scss';
+// Используем новую, современную библиотеку
+import { Client } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
 
 const ChatPage = ({ isAdmin }) => {
-  const [messages, setMessages] = useState([
-    { text: 'Подключение к вашему локальному серверу...', sender: 'System', isOutgoing: false, timestamp: '' },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const ws = useRef(null);
+  // useRef теперь будет хранить экземпляр клиента STOMP
+  const stompClientRef = useRef(null);
 
   useEffect(() => {
-
-    const wsUrl = `ws://${window.location.host}/ws`;
-    
-    ws.current = new WebSocket(wsUrl);
-
-    ws.current.onopen = () => {
-      console.log('WebSocket-соединение с локальным сервером установлено.');
-      setMessages(prev => [...prev, { text: 'Соединение установлено!', sender: 'System', isOutgoing: false, timestamp: new Date().toLocaleTimeString().slice(0, 5) }]);
+    // Создаем новый экземпляр клиента STOMP
+    const client = new Client({
+      // Вместо прямого URL мы передаем функцию, которая возвращает SockJS-соединение.
+      // Это стандартный способ для работы в браузере.
+      webSocketFactory: () => new SockJS('http://localhost:3001/ws'), // Убедитесь, что порт 3001 верный
       
+      // Логи для отладки в консоли браузера
+      debug: (str) => {
+        console.log(new Date(), str);
+      },
 
-    };
+      // Попытки переподключения каждые 5 секунд
+      reconnectDelay: 5000,
+    });
 
-    ws.current.onmessage = (event) => {
+    // Обработчик успешного подключения
+    client.onConnect = (frame) => {
+      console.log('STOMP-соединение установлено:', frame);
 
-      try {
-        const receivedData = JSON.parse(event.data);
+      // Подписываемся на публичный канал
+      client.subscribe('/topic/public', (message) => {
+        const receivedMessage = JSON.parse(message.body);
         
-        const incomingMessage = {
-          text: receivedData.text || 'Получено пустое сообщение',
-          sender: receivedData.sender?.name || 'Unknown',
+        const formattedMessage = {
+          id: receivedMessage.id,
+          text: receivedMessage.content,
+          sender: receivedMessage.senderUsername,
           isOutgoing: false,
-          timestamp: new Date().toLocaleTimeString().slice(0, 5),
+          timestamp: new Date(receivedMessage.sentAt).toLocaleTimeString().slice(0, 5),
         };
-        setMessages(prevMessages => [...prevMessages, incomingMessage]);
-      } catch (error) {
-        console.error("Не удалось обработать сообщение от сервера:", event.data);
-      }
+
+        setMessages(prevMessages => [...prevMessages, formattedMessage]);
+      });
     };
 
-    ws.current.onclose = () => {
-      console.log('WebSocket-соединение с локальным сервером закрыто.');
-      setMessages(prev => [...prev, { text: 'Соединение потеряно.', sender: 'System', isOutgoing: false, timestamp: new Date().toLocaleTimeString().slice(0, 5) }]);
+    // Обработчик ошибок
+    client.onStompError = (frame) => {
+      console.error('Broker reported error: ' + frame.headers['message']);
+      console.error('Additional details: ' + frame.body);
     };
 
-    ws.current.onerror = (error) => {
-      console.error('WebSocket-ошибка:', error);
-      setMessages(prev => [...prev, { text: 'Ошибка соединения.', sender: 'System', isOutgoing: false, timestamp: new Date().toLocaleTimeString().slice(0, 5) }]);
-    };
+    // Активируем клиент
+    client.activate();
 
+    // Сохраняем экземпляр клиента в ref, чтобы иметь к нему доступ в других функциях
+    stompClientRef.current = client;
+
+    // Функция очистки: деактивируем клиент при размонтировании компонента
     return () => {
-      ws.current.close();
+      if (stompClientRef.current) {
+        stompClientRef.current.deactivate();
+      }
     };
   }, []);
 
   const handleSendMessage = (event) => {
     event.preventDefault();
-    if (!newMessage.trim() || ws.current?.readyState !== WebSocket.OPEN) return;
-
+    if (!newMessage.trim() || !stompClientRef.current?.active) return;
 
     const messageToSend = {
-      text: newMessage,
-
+      content: newMessage,
+      recipientId: null,
+      attachmentUrl: null,
     };
 
-    ws.current.send(JSON.stringify(messageToSend));
+    // Отправляем сообщение через STOMP-клиент
+    stompClientRef.current.publish({
+      destination: '/app/chat',
+      body: JSON.stringify(messageToSend),
+    });
 
-
-    const outgoingMessage = {
-      text: newMessage,
-      sender: 'Me',
-      isOutgoing: true,
-      timestamp: new Date().toLocaleTimeString().slice(0, 5),
-    };
-    setMessages(prevMessages => [...prevMessages, outgoingMessage]);
     setNewMessage('');
   };
 

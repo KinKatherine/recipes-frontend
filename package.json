@@ -10,11 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@stomp/stompjs": "^7.2.1",
     "axios": "^1.13.2",
     "react": "^19.1.1",
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-dom": "^19.1.1",
-    "react-router-dom": "^7.9.4"
+    "react-router-dom": "^7.9.4",
+    "sockjs-client": "^1.6.1",
+    "stom": "^0.1.5-q"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
