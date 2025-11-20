@@ -49,6 +49,7 @@ const RegistWindow = ({onClose}) => {
         let errorData = await response.json().catch(() => ({ message: 'Ошибка сервера' }));
         throw new Error(errorData.message || `HTTP Error! Status: ${response.status}`);
       }
+      return true;
     }
     catch (e) {
       console.error("Registration failed:", e);
