@@ -47,7 +47,7 @@ const RegistWindow = ({onClose}) => {
       });
       if(!response.ok){
         let errorData = await response.json().catch(() => ({ message: 'Ошибка сервера' }));
-        throw new Error(errorData.message || `HTTP Error! Status: ${response.status}`);
+        setErrMsg(errorData.message || `HTTP Error! Status: ${response.status}`);
       }
       return true;
     }
@@ -207,7 +207,7 @@ const RegistWindow = ({onClose}) => {
            </div>    
       ) : (
         <form onSubmit={handleSubmit} className={styles["formBlock"]}>
-    <p ref={errRef} className= {errMsg ? "errmsg" : 
+    <p ref={errRef} className= {errMsg ? "errMsg" : 
       "offscreen"} aria-live="assertive">{errMsg}</p>
   
       
