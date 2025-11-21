@@ -1,39 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ChatPage.module.scss';
-// Используем новую, современную библиотеку
 import { Client } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
+// Изменяем способ импорта SockJS, чтобы он был совместим с Vite
+import SockJS from 'sockjs-client/dist/sockjs.min.js';
 
 const ChatPage = ({ isAdmin }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  // useRef теперь будет хранить экземпляр клиента STOMP
   const stompClientRef = useRef(null);
 
   useEffect(() => {
-    // Создаем новый экземпляр клиента STOMP
     const client = new Client({
-      // Вместо прямого URL мы передаем функцию, которая возвращает SockJS-соединение.
-      // Это стандартный способ для работы в браузере.
-      webSocketFactory: () => new SockJS('http://localhost:3001/ws'), // Убедитесь, что порт 3001 верный
-      
-      // Логи для отладки в консоли браузера
+      // URL для подключения выносим в отдельную переменную для читаемости
+      brokerURL: `ws://${window.location.hostname}:3001/ws`,
+
+      // Используем SockJS как запасной вариант, если нативные WebSockets не работают
+      // Это более надежный способ
+      webSocketFactory: () => new SockJS('http://localhost:3001/ws'),
+
       debug: (str) => {
         console.log(new Date(), str);
       },
-
-      // Попытки переподключения каждые 5 секунд
       reconnectDelay: 5000,
     });
 
-    // Обработчик успешного подключения
     client.onConnect = (frame) => {
       console.log('STOMP-соединение установлено:', frame);
-
-      // Подписываемся на публичный канал
       client.subscribe('/topic/public', (message) => {
         const receivedMessage = JSON.parse(message.body);
-        
         const formattedMessage = {
           id: receivedMessage.id,
           text: receivedMessage.content,
@@ -41,24 +35,18 @@ const ChatPage = ({ isAdmin }) => {
           isOutgoing: false,
           timestamp: new Date(receivedMessage.sentAt).toLocaleTimeString().slice(0, 5),
         };
-
         setMessages(prevMessages => [...prevMessages, formattedMessage]);
       });
     };
 
-    // Обработчик ошибок
     client.onStompError = (frame) => {
       console.error('Broker reported error: ' + frame.headers['message']);
       console.error('Additional details: ' + frame.body);
     };
 
-    // Активируем клиент
     client.activate();
-
-    // Сохраняем экземпляр клиента в ref, чтобы иметь к нему доступ в других функциях
     stompClientRef.current = client;
 
-    // Функция очистки: деактивируем клиент при размонтировании компонента
     return () => {
       if (stompClientRef.current) {
         stompClientRef.current.deactivate();
@@ -76,7 +64,6 @@ const ChatPage = ({ isAdmin }) => {
       attachmentUrl: null,
     };
 
-    // Отправляем сообщение через STOMP-клиент
     stompClientRef.current.publish({
       destination: '/app/chat',
       body: JSON.stringify(messageToSend),
@@ -85,7 +72,7 @@ const ChatPage = ({ isAdmin }) => {
     setNewMessage('');
   };
 
-  // ... остальной код рендеринга (adminView, userView) остается без изменений ...
+  // ... остальной код рендеринга без изменений ...
   const chatAreaContent = (
     <main className={styles.chatArea}>
       <div className={styles.chatArea__messages}>

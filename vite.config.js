@@ -6,17 +6,16 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      // Проксируем все запросы, начинающиеся с /api
-      '/api': {
-        // Укажите здесь порт вашего локального бэкенд-сервера
-        target: 'http://localhost:3001', 
-        changeOrigin: true, // Необходимо для виртуальных хостов
-        rewrite: (path) => path.replace(/^\/api/, ''), // Убираем /api из пути запроса
+      // --- Правило для всех HTTP API-запросов ---
+      // Теперь все запросы, начинающиеся с /v1, будут перенаправляться на бэкенд
+      '/v1': {
+        target: 'http://localhost:3001', // Убедитесь, что порт вашего бэкенда 3001
+        changeOrigin: true,
       },
-      // Проксируем WebSocket-соединения
+      // --- Правило для WebSocket-соединений чата ---
       '/ws': {
-        target: 'ws://localhost:3001', // Укажите порт вашего WebSocket-сервера
-        ws: true, // Включаем поддержку WebSocket
+        target: 'ws://localhost:3001', // Убедитесь, что порт вашего бэкенда 3001
+        ws: true,
       },
     },
   },
