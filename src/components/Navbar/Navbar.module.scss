@@ -16,6 +16,33 @@
       text-decoration: underline;
     }
   }
+
+  .userPanel{
+    display: flex;
+    list-style: none;
+    gap: 2vw;
+    align-items: center;
+    .userInfo{
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+      .avatarFrame{
+        display: flex;
+        aspect-ratio: 1/1;
+         width: 5vmin;
+        padding: 0.5vmin;
+        border-radius: 30rem;
+        background-color: $color-gray-dark;
+        .avatarImg{
+          display: flex;
+          width: 100%;
+           border-radius: 30rem;
+        object-fit: cover;
+       
+        }
+      }
+    }
+  }
   .sign-in{
     display: flex;
     list-style: none;

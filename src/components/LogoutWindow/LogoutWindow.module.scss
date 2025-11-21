@@ -1,0 +1,102 @@
+@use '../../styles/abstracts/variables' as *;
+
+.window{
+  display: flex;
+ 
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1000; 
+  
+  .frame{
+    border-radius: 10vmin;
+    padding: 1.5vmin;
+    background-color: $color-yellow;
+    .block{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3vw;
+      border-radius: 9vmin;
+      //width: 40vw;
+      background-color: $color-white;
+      gap: 5vh;
+      position: relative;
+      .title{
+        font-size: clamp(1.3rem, 3vw, 32px);
+      }
+      .cross{
+        width: 3vw;
+        right: -3vw;
+        top: -3vw;
+        position: absolute;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+        &:hover{
+          transform: scale(1.1);
+        }
+        //z-index: 10;
+      }
+      .buttons{
+        display: flex;
+        gap: 2vw;
+        >*{
+          display: flex;
+          width: 12vmin;
+          justify-content: center;
+        }
+      }
+    }
+  }
+  @media(max-width: 1024px){
+    .frame{
+      
+      .block{
+        .cross{
+          width: 4vw;
+        }
+        .buttons{
+          >*{
+            width: 10vmin;
+            height: 6vmin;
+            p{
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+   @media(max-width: 480px){
+    .frame{
+      // width: 70vw;
+      padding: 2vw;
+       border-radius: 15vw;
+      
+      .block{
+        border-radius: 14vw;
+        padding: 8vw;
+        .cross{
+          width: 8vw;
+          right: -6vw;
+          top: -6vw;
+        }
+        .buttons{
+          gap: 5vw;
+          >*{
+            width: 18vmin;
+            height: 10vmin;
+            p{
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}

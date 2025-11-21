@@ -192,7 +192,7 @@ const RegistWindow = ({onClose}) => {
 
   return (
     
-    
+
     <section>
      <div className={styles["window"]}>
        <div className={styles["frame"]}>
@@ -203,7 +203,9 @@ const RegistWindow = ({onClose}) => {
       ( <div className={styles["successBlock"]}>
         <p>🎉</p>
                 <h3>Регистрация завершена!</h3>
-                <p>Вы успешно зарегистрированы в системе.</p>
+                <p>Вы успешно зарегистрированы в системе.<br/>
+                Перейдите на почту для подтверждения регистраци
+              </p>
            </div>    
       ) : (
         <form onSubmit={handleSubmit} className={styles["formBlock"]}>
@@ -312,7 +314,7 @@ const RegistWindow = ({onClose}) => {
           </div>
           <Button 
           type = "submit"
-          disabled={!validName || !userAvailable || !validMail || !mailAvailable || !validPwd || !validMatch ? true : false} 
+          disabled={!validName || !userAvailable || !validMail || !mailAvailable || !validPwd || !validMatch || success ? true : false} 
           buttonName={'продолжить'} />
           </form>
       )}

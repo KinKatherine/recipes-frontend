@@ -39,7 +39,7 @@
           width: 30vw;
           object-fit: cover;
           border-radius: 4vw;
-          max-height: 45vh;
+          max-height: 23vw;
         }
     }
     .ratingInfo{
@@ -314,7 +314,8 @@
       padding: 2vw;
       border-radius: 8vmin;
         .image{
-          min-width: 50vw;
+          width: 40vw;
+          max-height: 30vw;
           border-radius: 7vmin;
         }
       }

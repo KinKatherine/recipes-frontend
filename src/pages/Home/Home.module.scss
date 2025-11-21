@@ -11,7 +11,7 @@
   .day-recipe{
     position: relative;
     width:100%;
-    min-height: 85vh;
+    min-height: 90vh;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     .background{
       width: 100%;
@@ -54,7 +54,6 @@
         margin: 20px;
         border-radius: 7vmin;
         width: 40%; 
-        min-width: 200px;
         height: auto; 
         object-fit:cover;
         
@@ -68,9 +67,9 @@
         align-items: center;
         .name{
           font-size: $font-title-adap-size;
-          margin-bottom: 3vh;
+          margin-bottom: 3%;
           text-align: center;
-          margin-top: 3vh;
+          margin-top: 3%;
         }
         .description{
           font-size: clamp(1.2rem, 2vw, 24px);
@@ -118,20 +117,22 @@
       min-height: 90vh; 
       
       .recipe {
-        width: 80%; 
+        //width: 80%; 
         right: auto;
         gap:5%;
+        max-height: 40vh;
 
-         align-items: center;
         
         .info {
           width: 45%;
           white-space: normal;
-          
+          margin-top: 7vh;
+          margin-bottom: 10vh;
           button {
+            margin-top: 3vh;
              width: 40%;
             height: 60%;
-            padding: 5% 10%;
+           // padding: 5% 10%;
           }
         }
       }
@@ -156,7 +157,7 @@
       .background p {
         font-size: clamp(1.5rem, 5vw, 2.5rem);
         top: 5%;
-        margin-bottom: 7%;
+        margin-bottom: 1%;
         left: 50%;
         transform: translateX(-50%);
         right: auto;
@@ -169,29 +170,35 @@
         width: 60%; 
         max-width: 400px; 
         border-radius: 10vmin; 
-        padding-bottom: 20px;
+        padding-bottom: 2vh;
         margin-top: 15vh; 
-        
+        height: auto;
+        max-height: 90vh;
+        margin-bottom: 0;
         img {
-
+          max-height: 40vw;
           width: 90%; 
           max-width: none;
-          margin: 20px; 
+          margin-top: 3vw; 
+          align-self: center;
+          
         }
 
         .info {
           width: 100%; 
           padding: 0 10px;
-          margin-bottom: 5%;
+          margin-bottom: 0;
+          margin-top: 0; 
           .name {
             font-size: clamp(1.5rem, 5vw, 2rem);
-            margin-top: 10px;
+            //margin-top: 1vh;
           }
           .description {
             font-size: 0.9rem;
             text-align: center;
             padding: 0 10px;
             font-size: clamp(1rem, 3vw, 1.5rem);
+            width: 100%;
           }
 
           button {

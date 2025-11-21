@@ -23,6 +23,7 @@ const DayRecipeData = [
 
 const Home = () => {
   //const dayRecipe = DayRecipeData[0];
+  
   const navigate = useNavigate();
 
 
@@ -121,6 +122,8 @@ const Home = () => {
     return <div className={styles.home}><p style={{textAlign: 'center', padding: '50px'}}>Рецепт дня не доступен. 😔</p></div>;
   }
 
+  const dayRecipeTitle = "Рецепт дня";
+  const newRecipesTitle = "Новейшие рецепты";
   return (
     <div className={styles.home}>
       <div className={styles["day-recipe"]}>
@@ -139,12 +142,12 @@ const Home = () => {
         </div>
         <div className={styles["background"]}>
           <img src={background} alt=""></img>
-          <p className={styles["title"]}>Recipe of the day</p>
+          <p className={styles["title"]}>{dayRecipeTitle}</p>
         </div>
       </div>
 
       <div className={styles["new-recipes-title"]}>
-        <p> New recipes </p>
+        {newRecipesTitle}
       </div>
 
       <div className={styles["new-recipes"]}>
