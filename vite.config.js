@@ -1,21 +1,16 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      // --- Правило для всех HTTP API-запросов ---
-      // Теперь все запросы, начинающиеся с /v1, будут перенаправляться на бэкенд
-      '/v1': {
-        target: 'http://localhost:3001', // Убедитесь, что порт вашего бэкенда 3001
+      // Единое правило для всех запросов к API (и HTTP, и WebSocket)
+      '/api': {
+        target: 'http://localhost:3001', // Порт нашего мокового сервера
         changeOrigin: true,
-      },
-      // --- Правило для WebSocket-соединений чата ---
-      '/ws': {
-        target: 'ws://localhost:3001', // Убедитесь, что порт вашего бэкенда 3001
-        ws: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        ws: true, // Включаем проксирование WebSocket через этот же путь
       },
     },
   },
