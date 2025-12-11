@@ -15,7 +15,7 @@ const Favorite = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [propose, setPropose] = useState(null);
-  const proposeTextRus = 'Начните добавлять любимые рецепты!';
+  const proposeText = t("get_fav");
   useEffect (() => {
     const fetchFav = async() =>{
       if(!token){
@@ -36,14 +36,13 @@ const Favorite = () => {
         setFavData(myFavArray);
         console.log(myFavArray);
         if(myFavArray && myFavArray.length === 0){
-          setPropose(proposeTextRus);
+          setPropose(proposeText);
           console.log(propose);
         }
       }
       catch(e){
         if(axios.isAxiosError(e) && e.response?.status === 401){
           console.warn('Fav recipes fetch failed: Token expired. Forcing logout');
-          // вызвать здесь полный logout, если токен истек
         }
         console.error('Failed to fetch avatar', e);
       }
@@ -60,7 +59,7 @@ const Favorite = () => {
       <div className={styles["fav-recipes-title"]}>
         <p>{t("myFav_title")}</p>
       </div> 
-      {isLoading && <p>Загрузка ваших любимых рецептов...</p>}
+      {isLoading && <p>{t("loading_fav")}</p>}
       {error && <p className={styles["error"]}>{error}</p>}
       {!isLoading && !error && propose && <p>{propose}</p>}
       <div className={styles["fav-recipes"]}>

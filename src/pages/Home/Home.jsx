@@ -12,15 +12,6 @@ import { useTranslation } from 'react-i18next';
 import {useState, useEffect } from 'react'
 import { useNavigate} from 'react-router-dom';
 
-const NewRecipesData = [
-  { id: 2, name: 'пельмешки', image: dumplings, meal: 'обед', time: '10 минут', rating: 5},
-  { id: 3, name: 'запечённая рыба', image: fish, meal: 'ужин', time: '90 минут', rating: 3 },
-  { id: 4, name: 'хачапури по-аджарски и что то там ещё вкусное', image: khachapuri, meal: 'ужин', time: '45 минут', rating: 4 },
-];
-
-const DayRecipeData = [
-  { id: 0, name: 'Рататуй', image: imageRecipe, description: 'Овощи, запечённые в духовке', meal: 'обед', time: '10 минут', rating: 5},
-];
 
 const Home = () => {
   //const dayRecipe = DayRecipeData[0];
@@ -102,7 +93,7 @@ const Home = () => {
   }
 
   if (isLoading) {
-    return <div className={styles.home}><p style={{textAlign: 'center', padding: '50px'}}>Загрузка рецепта дня... ⏳</p></div>;
+    return <div className={styles.home}><p style={{textAlign: 'center', padding: '50px'}}>{t("loading_dayRecipe")} ⏳</p></div>;
   }
 
   if (error) {
@@ -110,11 +101,11 @@ const Home = () => {
   }
 
   if (!newRecipes) {
-    return <div className={styles.home}><p style={{textAlign: 'center', padding: '50px'}}>Новейшие рецепты не доступны. 😔</p></div>;
+    return <div className={styles.home}><p style={{textAlign: 'center', padding: '50px'}}> 😔</p></div>;
   }
 
   if (isNewLoading) {
-    return <div className={styles.home}><p style={{textAlign: 'center', padding: '50px'}}>Загрузка новейших рецептов... ⏳</p></div>;
+    return <div className={styles.home}><p style={{textAlign: 'center', padding: '50px'}}>{t("loading_newRecipes")} ⏳</p></div>;
   }
 
   if (newError) {
@@ -122,7 +113,7 @@ const Home = () => {
   }
 
   if (!newRecipes) {
-    return <div className={styles.home}><p style={{textAlign: 'center', padding: '50px'}}>Рецепт дня не доступен. 😔</p></div>;
+    return <div className={styles.home}><p style={{textAlign: 'center', padding: '50px'}}>{t("unavailable_dayRecipe")} 😔</p></div>;
   }
 
   return (

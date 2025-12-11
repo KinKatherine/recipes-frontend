@@ -52,22 +52,22 @@ const Recipe = ({recipe}) => {
 
       <div className={styles["info"]}>
         <div className={styles["description"]}>
-          <p className={styles["title"]}>Описание</p>
+          <p className={styles["title"]}>{t("description")}</p>
           <p className={styles["text"]}>{recipe.description}</p>
         </div>
         <div className={styles["cookingTime"]}>
-          <p className={styles["title"]}>Время приготовления</p>
+          <p className={styles["title"]}>{t("cooking_time")}</p>
           <div className={styles["general"]}>
-            <p className={styles["text"]}>Общее</p>
+            <p className={styles["text"]}>{t("general")}</p>
             <p className={styles["time"]}>{recipe.cookingTime} мин</p>
           </div>
         </div>
         <div className={styles["countOfServings"]}>
-           <p className={styles["title"]}>Количество порций</p>
+           <p className={styles["title"]}>{t("count_of_servings")}</p>
            <p className={styles["count"]}>{recipe.countOfServings}</p>
         </div>
         <div className={styles["ingredients"]}>
-            <p className={styles["title"]}>Ингредиенты</p>
+            <p className={styles["title"]}>{t("ingredients")}</p>
             {recipe.ingredientDTOs.map((ingredient) => (
               <Ingredient
                 key = {ingredient.id}
@@ -78,7 +78,7 @@ const Recipe = ({recipe}) => {
             ))}
         </div>
         <div className={styles["cooking"]}>
-          <p className={styles["title"]}>Приготовление</p>
+          <p className={styles["title"]}>{t("cooking")}</p>
           <p className={styles["text"]}>{recipe.instruction}</p>
         </div>
       </div>
@@ -86,10 +86,10 @@ const Recipe = ({recipe}) => {
       <div className={styles["feetbackSection"]}>
         <div className={styles["whiteBlock"]}></div>
         <div className={styles["header"]}>
-          <p className={styles["title"]}>Комментарии</p>
+          <p className={styles["title"]}>{t("comments")}</p>
         </div>
         <div className={styles["rateRecipe"]}>
-          <p className={styles["title"]}>Оценить рецепт</p>
+          <p className={styles["title"]}>{t("rate_recipe")}</p>
           <StarRatingInteractive
             initialRating = {recipe.userRating}
             onRatingChange={handleNewRating}
@@ -107,7 +107,7 @@ const Recipe = ({recipe}) => {
              <div className={styles["button"]}>
               <Button 
         
-              buttonName = {'отправить'} 
+              buttonName = {t("send")}
               />
               </div>
             </div>

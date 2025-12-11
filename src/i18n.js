@@ -26,9 +26,11 @@ const resources = {
 
       "description": "Description",
       "cooking_time": "Cooking time",
+      "general": "General",
       "count_of_servings": "Count of servings",
       "ingredients": "Ingredients",
       "cooking": "Cooking",
+
 
       "comments": "Comments",
       "rate_recipe": "Rate recipe",
@@ -39,6 +41,15 @@ const resources = {
       "add_comment": "Add comment",
       "send_comment": "send",
 
+      "create_recipe": "Create your first recipe",
+      "get_fav": "Start adding your favorite recipes!",
+
+      "loading_fav": "Loading your favorite recipes...",
+
+      "loading_dayRecipe": "Loading recipe of the day...",
+      "unavailable_dayRecipe": "Recipe of the day is unavailable",
+      "loading_newRecipes": "Loading latest recipes...",
+      "unavailable_newRecipes": "Latest recipes are unavailable",
     }
   },
   ru: {
@@ -46,7 +57,7 @@ const resources = {
       "search_title": "Поиск",
       "button_registrate": "Регистрация",
       "button_login": "Вход",
-      "button_lang": "Рус", //мб не надо
+      "button_lang": "Рус", 
       "button_logout": "Выход",
       "popular_title": "Популярное",
       "category_title": "Категории",
@@ -64,6 +75,7 @@ const resources = {
 
       "description": "Описание",
       "cooking_time": "Время приготовления",
+      "general": "Общее",
       "count_of_servings": "Количество порций",
       "ingredients": "Ингредиенты",
       "cooking": "Приготовление",
@@ -77,6 +89,15 @@ const resources = {
       "add_comment": "Добавить комментарий",
       "send_comment": "отправить",
 
+      "create_recipe": "Создайте свой первый рецепт",
+      "get_fav": "Начните добавлять любимые рецепты!",
+
+      "loading_fav": "Загрузка ваших любимых рецептов...",
+      
+      "loading_dayRecipe": "Загрузка рецепта дня...",
+      "unavailable_dayRecipe": "Рецепт дня не доступен.",
+      "loading_newRecipes": "Загрузка новейших рецептов...",
+      "unavailable_newRecipes": "Новейшие рецепты не доступны.",
     }
   }
 };

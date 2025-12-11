@@ -4,10 +4,12 @@ import editIcon from '../../assets/edit-icon.svg'
 import BlocksRecipe from '../../components/BlocksRecipe/BlocksRecipe';
 import AuthContext  from '../../context/AuthProvider';
 import { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 
 const MY_RECIPES_URL = '/api/v1/recipes/my-recipes';
 const Profile = () => {
+  const {t} = useTranslation();
   const {auth} = useContext(AuthContext);
   const user = auth?.user;
   const token = auth?.token;
@@ -67,7 +69,7 @@ const Profile = () => {
     <div className={styles.profile}>
       <div className={styles["headerBlock"]}>
         <p className={styles["header"]}>
-          Мой профиль
+          {t("myProfile_title")}
         </p>
       </div>
         <div className={styles["profileBlock"]}>
@@ -82,7 +84,7 @@ const Profile = () => {
         </div>
 
 
-          <p className={styles["title"]}>Мои рецепты</p>
+          <p className={styles["title"]}>{t("myRecipes_title")}</p>
           {isLoading && <p>Загрузка ваших рецептов...</p>}
           {error && <p className={styles["error"]}>{error}</p>}
           {!isLoading && !error && propose && <p>{propose}</p>}

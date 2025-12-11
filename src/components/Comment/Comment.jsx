@@ -40,7 +40,7 @@ const Comment = ({authorUsername, initialText, isPersonal}) => {
           <textarea 
         ref= {textareaRef}
         className={styles["text"]} 
-        placeholder='Добавить комментарий'
+        placeholder={t("add_comment")}
         value={commentText}
         onChange={handleChange}
         rows = {1}/>
