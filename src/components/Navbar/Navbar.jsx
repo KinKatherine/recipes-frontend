@@ -9,10 +9,9 @@ import LogoutWindow from '../LogoutWindow/LogoutWindow';
 import {Link, useNavigate} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 import { useLanguageSync } from '../../context/useLanguageSync';
+import logger from '../../services/loggingService'; // Импортируем наш логгер
 
 import avatar from '../../assets/ratatouille.svg'
-
-//import {Link} from 'react-router-dom'
 
 const Navbar = () => {
   const {auth, setAuth} = useContext(AuthContext);
@@ -40,18 +39,17 @@ const Navbar = () => {
   const closeRegist = () => setIsRegistOpen(false);
 
   const [isSignInOpen, setIsSignIntOpen] = useState(false);
-  const openSignIn = () => setIsSignIntOpen(true);
+  const openSignIn = () => {
+    // Логируем важное действие пользователя
+    logger.info('User opened Sign In window');
+    setIsSignIntOpen(true);
+  };
   const closeSignIn = () => setIsSignIntOpen(false);
 
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   const openLogout = () => setIsLogoutOpen(true);
   const closeLogout= () => setIsLogoutOpen(false);
 
-
-  const searchName = "Поиск";
-  const registName = "Регистрация";
-  const signInName = "Вход";
-  const signOutRus = "Выход";
   return (
     <div className={styles.navbar}>
       <div className={styles['home-bar']}>
@@ -68,7 +66,7 @@ const Navbar = () => {
             {auth.user}
             <Link to="/profile">
               <div className={styles["avatarFrame"]}>
-               {auth.avatar && <img src={`/uploads/avatars/${auth.avatar}`} className={styles["avatarImg"]}/>}{/* надо вытянуть аватар`/uploads/avatars/${auth.user.}`*/}
+               {auth.avatar && <img src={`/uploads/avatars/${auth.avatar}`} className={styles["avatarImg"]}/>}
               </div>
             </Link>
           </li>
@@ -94,7 +92,7 @@ const Navbar = () => {
       >{t('button_lang')}</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Navbar;
