@@ -1,4 +1,5 @@
-import axios from '../api/axios'; // Предполагаем, что у вас есть настроенный экземпляр axios
+// Используем axios напрямую из библиотеки, а не из кастомного файла
+import axios from 'axios';
 
 const LOG_LEVELS = {
   INFO: 'INFO',
@@ -17,9 +18,8 @@ const sendLogToServer = async (level, message, context = {}) => {
     // Выводим лог в консоль для локальной отладки
     console[level.toLowerCase()]?.(`[${level}] ${message}`, context);
 
-    // Отправляем лог на сервер
-    // Предполагаем, что на бэкенде есть эндпоинт POST /logs
-    await axios.post('/logs', {
+    // Отправляем лог на сервер. Используем относительный URL, который будет обработан прокси.
+    await axios.post('/api/logs', { // Добавляем префикс /api для прокси
       level,
       message,
       timestamp: new Date().toISOString(),
